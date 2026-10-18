@@ -1,0 +1,1260 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "AirNow",
+  "description": {
+    "en": "U.S. air quality from AirNow (EPA): AQI now, forecast and alerts for your places.",
+    "fr": "Qualité de l’air AirNow (EPA, États-Unis) : AQI actuel, prévision et alertes.",
+    "de": "US-Luftqualität von AirNow (EPA): aktueller AQI, Vorhersage und Warnungen.",
+    "es": "Calidad del aire de AirNow (EPA, EE. UU.): AQI actual, previsión y alertas."
+  },
+  "version": "0.1.0",
+  "docker_image": "ghcr.io/william-de71/gladys-airnow:0.1.0",
+  "gladys_version": ">=5.2.0",
+  "categories": ["environment"],
+  "cover_image": "https://raw.githubusercontent.com/William-De71/gladys-airnow/main/cover.jpg",
+  "transports": ["cloud"],
+  "location": true,
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "AirNow API key",
+        "fr": "Clé d’API AirNow",
+        "de": "AirNow-API-Schlüssel",
+        "es": "Clave de API de AirNow"
+      },
+      "description": {
+        "en": "AirNow is the air quality program of the U.S. EPA, with its state, local and tribal partners: observations and forecasts of the Air Quality Index for the United States, Canada and Mexico. Its API needs a free key: request an account, then copy the key shown at the top right of its Web Services page.",
+        "fr": "AirNow est le programme de qualité de l’air de l’EPA américaine et de ses partenaires locaux : mesures et prévisions de l’indice AQI pour les États-Unis, le Canada et le Mexique. Son API demande une clé gratuite : créez un compte, puis copiez la clé affichée en haut à droite de sa page Web Services.",
+        "de": "AirNow ist das Luftqualitätsprogramm der US-Umweltbehörde EPA und ihrer Partner: Messwerte und Vorhersagen des AQI für die USA, Kanada und Mexiko. Die API braucht einen kostenlosen Schlüssel: Beantrage ein Konto und kopiere dann den Schlüssel oben rechts auf der Seite Web Services.",
+        "es": "AirNow es el programa de calidad del aire de la EPA de EE. UU. y de sus socios: mediciones y previsiones del índice AQI para Estados Unidos, Canadá y México. Su API necesita una clave gratuita: solicite una cuenta y copie la clave que aparece arriba a la derecha de su página Web Services."
+      },
+      "links": [
+        {
+          "url": "https://docs.airnowapi.org/account/request/",
+          "label": {
+            "en": "Request an AirNow API account",
+            "fr": "Demander un compte AirNow API",
+            "de": "AirNow-API-Konto beantragen",
+            "es": "Solicitar una cuenta de AirNow API"
+          }
+        },
+        {
+          "url": "https://docs.airnowapi.org/login",
+          "label": {
+            "en": "Log in to find your key",
+            "fr": "Se connecter pour trouver la clé",
+            "de": "Anmelden, um den Schlüssel zu finden",
+            "es": "Iniciar sesión para ver la clave"
+          }
+        }
+      ]
+    },
+    {
+      "key": "api_key",
+      "type": "secret",
+      "required": true,
+      "label": {
+        "en": "API key",
+        "fr": "Clé d’API",
+        "de": "API-Schlüssel",
+        "es": "Clave de API"
+      },
+      "placeholder": {
+        "en": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+        "fr": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+        "de": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+        "es": "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
+      }
+    },
+    {
+      "key": "places",
+      "type": "section",
+      "label": {
+        "en": "Place 1",
+        "fr": "Lieu 1",
+        "de": "Ort 1",
+        "es": "Lugar 1"
+      },
+      "description": {
+        "en": "Up to three places, each a house of Gladys or a ZIP code. AirNow answers with the nearest reporting area and its monitors (within about 50 miles).",
+        "fr": "Jusqu’à trois lieux, chacun une maison de Gladys ou un code ZIP. AirNow répond avec la zone de mesure la plus proche et ses stations (dans un rayon d’environ 80 km).",
+        "de": "Bis zu drei Orte, jeweils ein Haus in Gladys oder eine ZIP-Postleitzahl. AirNow antwortet mit dem nächsten Berichtsgebiet und seinen Messstationen (im Umkreis von etwa 80 km).",
+        "es": "Hasta tres lugares, cada uno una casa de Gladys o un código ZIP. AirNow responde con la zona de medición más cercana y sus estaciones (en un radio de unos 80 km)."
+      }
+    },
+    {
+      "key": "house_1",
+      "type": "select",
+      "source": "houses",
+      "label": {
+        "en": "House",
+        "fr": "Maison",
+        "de": "Haus",
+        "es": "Casa"
+      },
+      "description": {
+        "en": "Its location in Gladys locates the place (United States, Canada, Mexico).",
+        "fr": "Sa position dans Gladys situe le lieu (États-Unis, Canada, Mexique).",
+        "de": "Ihr Standort in Gladys bestimmt den Ort (USA, Kanada, Mexiko).",
+        "es": "Su ubicación en Gladys sitúa el lugar (Estados Unidos, Canadá, México)."
+      }
+    },
+    {
+      "key": "zip_1",
+      "type": "string",
+      "label": {
+        "en": "Or a ZIP code",
+        "fr": "Ou un code ZIP",
+        "de": "Oder eine ZIP-Postleitzahl",
+        "es": "O un código ZIP"
+      },
+      "description": {
+        "en": "A U.S. ZIP code, five digits. Wins over the house.",
+        "fr": "Un code postal américain (ZIP), cinq chiffres. Prioritaire sur la maison.",
+        "de": "Eine US-Postleitzahl (ZIP), fünf Ziffern. Hat Vorrang vor dem Haus.",
+        "es": "Un código postal estadounidense (ZIP), cinco dígitos. Prevalece sobre la casa."
+      },
+      "placeholder": {
+        "en": "90210",
+        "fr": "90210",
+        "de": "90210",
+        "es": "90210"
+      }
+    },
+    {
+      "key": "place_2_section",
+      "type": "section",
+      "label": {
+        "en": "Place 2",
+        "fr": "Lieu 2",
+        "de": "Ort 2",
+        "es": "Lugar 2"
+      },
+      "description": {
+        "en": "Optional.",
+        "fr": "Facultatif.",
+        "de": "Optional.",
+        "es": "Opcional."
+      }
+    },
+    {
+      "key": "house_2",
+      "type": "select",
+      "source": "houses",
+      "label": {
+        "en": "House",
+        "fr": "Maison",
+        "de": "Haus",
+        "es": "Casa"
+      },
+      "description": {
+        "en": "Its location in Gladys locates the place (United States, Canada, Mexico).",
+        "fr": "Sa position dans Gladys situe le lieu (États-Unis, Canada, Mexique).",
+        "de": "Ihr Standort in Gladys bestimmt den Ort (USA, Kanada, Mexiko).",
+        "es": "Su ubicación en Gladys sitúa el lugar (Estados Unidos, Canadá, México)."
+      }
+    },
+    {
+      "key": "zip_2",
+      "type": "string",
+      "label": {
+        "en": "Or a ZIP code",
+        "fr": "Ou un code ZIP",
+        "de": "Oder eine ZIP-Postleitzahl",
+        "es": "O un código ZIP"
+      },
+      "description": {
+        "en": "A U.S. ZIP code, five digits. Wins over the house.",
+        "fr": "Un code postal américain (ZIP), cinq chiffres. Prioritaire sur la maison.",
+        "de": "Eine US-Postleitzahl (ZIP), fünf Ziffern. Hat Vorrang vor dem Haus.",
+        "es": "Un código postal estadounidense (ZIP), cinco dígitos. Prevalece sobre la casa."
+      },
+      "placeholder": {
+        "en": "90210",
+        "fr": "90210",
+        "de": "90210",
+        "es": "90210"
+      }
+    },
+    {
+      "key": "place_3_section",
+      "type": "section",
+      "label": {
+        "en": "Place 3",
+        "fr": "Lieu 3",
+        "de": "Ort 3",
+        "es": "Lugar 3"
+      },
+      "description": {
+        "en": "Optional.",
+        "fr": "Facultatif.",
+        "de": "Optional.",
+        "es": "Opcional."
+      }
+    },
+    {
+      "key": "house_3",
+      "type": "select",
+      "source": "houses",
+      "label": {
+        "en": "House",
+        "fr": "Maison",
+        "de": "Haus",
+        "es": "Casa"
+      },
+      "description": {
+        "en": "Its location in Gladys locates the place (United States, Canada, Mexico).",
+        "fr": "Sa position dans Gladys situe le lieu (États-Unis, Canada, Mexique).",
+        "de": "Ihr Standort in Gladys bestimmt den Ort (USA, Kanada, Mexiko).",
+        "es": "Su ubicación en Gladys sitúa el lugar (Estados Unidos, Canadá, México)."
+      }
+    },
+    {
+      "key": "zip_3",
+      "type": "string",
+      "label": {
+        "en": "Or a ZIP code",
+        "fr": "Ou un code ZIP",
+        "de": "Oder eine ZIP-Postleitzahl",
+        "es": "O un código ZIP"
+      },
+      "description": {
+        "en": "A U.S. ZIP code, five digits. Wins over the house.",
+        "fr": "Un code postal américain (ZIP), cinq chiffres. Prioritaire sur la maison.",
+        "de": "Eine US-Postleitzahl (ZIP), fünf Ziffern. Hat Vorrang vor dem Haus.",
+        "es": "Un código postal estadounidense (ZIP), cinco dígitos. Prevalece sobre la casa."
+      },
+      "placeholder": {
+        "en": "90210",
+        "fr": "90210",
+        "de": "90210",
+        "es": "90210"
+      }
+    },
+    {
+      "key": "options",
+      "type": "section",
+      "label": {
+        "en": "Options",
+        "fr": "Options",
+        "de": "Optionen",
+        "es": "Opciones"
+      },
+      "description": {
+        "en": "AirNow updates the observations once an hour and the forecasts once or twice a day: the integration reads them at 35 minutes past every hour.",
+        "fr": "AirNow met à jour les mesures une fois par heure et les prévisions une ou deux fois par jour : l’intégration les lit à la 35e minute de chaque heure.",
+        "de": "AirNow aktualisiert die Messwerte einmal pro Stunde und die Vorhersagen ein- bis zweimal täglich: die Integration liest sie jeweils zur 35. Minute.",
+        "es": "AirNow actualiza las mediciones una vez por hora y las previsiones una o dos veces al día: la integración las lee en el minuto 35 de cada hora."
+      }
+    },
+    {
+      "key": "language",
+      "type": "select",
+      "default": "auto",
+      "label": {
+        "en": "Language of the texts",
+        "fr": "Langue des textes",
+        "de": "Sprache der Texte",
+        "es": "Idioma de los textos"
+      },
+      "description": {
+        "en": "Device names and the texts given to scenes. Automatic: the language of the last widget shown.",
+        "fr": "Noms des appareils et textes transmis aux scènes. Automatique : la langue du dernier widget affiché.",
+        "de": "Gerätenamen und die an Szenen übergebenen Texte. Automatisch: die Sprache des zuletzt angezeigten Widgets.",
+        "es": "Nombres de los dispositivos y textos pasados a las escenas. Automático: el idioma del último widget mostrado."
+      },
+      "options": [
+        {
+          "value": "auto",
+          "label": {
+            "en": "Automatic",
+            "fr": "Automatique",
+            "de": "Automatisch",
+            "es": "Automático"
+          }
+        },
+        {
+          "value": "en",
+          "label": {
+            "en": "English",
+            "fr": "English",
+            "de": "English",
+            "es": "English"
+          }
+        },
+        {
+          "value": "fr",
+          "label": {
+            "en": "Français",
+            "fr": "Français",
+            "de": "Français",
+            "es": "Français"
+          }
+        },
+        {
+          "value": "de",
+          "label": {
+            "en": "Deutsch",
+            "fr": "Deutsch",
+            "de": "Deutsch",
+            "es": "Deutsch"
+          }
+        },
+        {
+          "value": "es",
+          "label": {
+            "en": "Español",
+            "fr": "Español",
+            "de": "Español",
+            "es": "Español"
+          }
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "key": "read_now",
+      "timeout_seconds": 60,
+      "label": {
+        "en": "Read now",
+        "fr": "Lire maintenant",
+        "de": "Jetzt lesen",
+        "es": "Leer ahora"
+      },
+      "description": {
+        "en": "Checks the key, locates the places and reads them now.",
+        "fr": "Vérifie la clé, situe les lieux et les lit tout de suite.",
+        "de": "Prüft den Schlüssel, ermittelt die Orte und liest sie sofort.",
+        "es": "Comprueba la clave, sitúa los lugares y los lee ahora."
+      }
+    },
+    {
+      "key": "diagnostic",
+      "label": {
+        "en": "Diagnostic",
+        "fr": "Diagnostic",
+        "de": "Diagnose",
+        "es": "Diagnóstico"
+      },
+      "description": {
+        "en": "Writes the state of the integration to its logs, without the key.",
+        "fr": "Écrit l’état de l’intégration dans ses journaux, sans la clé.",
+        "de": "Schreibt den Zustand der Integration in ihre Logs, ohne den Schlüssel.",
+        "es": "Escribe el estado de la integración en sus registros, sin la clave."
+      }
+    }
+  ],
+  "widgets": [
+    {
+      "key": "air_quality",
+      "icon": "wind",
+      "action_timeout_seconds": 60,
+      "label": {
+        "en": "AirNow air quality",
+        "fr": "Qualité de l’air AirNow",
+        "de": "AirNow-Luftqualität",
+        "es": "Calidad del aire AirNow"
+      },
+      "description": {
+        "en": "The AQI now, PM2.5, ozone and PM10, with the health message.",
+        "fr": "L’AQI actuel, PM2,5, ozone et PM10, avec le conseil santé.",
+        "de": "Der aktuelle AQI, PM2,5, Ozon und PM10, mit dem Gesundheitshinweis.",
+        "es": "El AQI actual, PM2,5, ozono y PM10, con el consejo de salud."
+      },
+      "settings": [
+        {
+          "key": "place",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Place",
+            "fr": "Lieu",
+            "de": "Ort",
+            "es": "Lugar"
+          },
+          "description": {
+            "en": "An AirNow device. Leave empty for the first place.",
+            "fr": "Un appareil AirNow. Laissez vide pour le premier lieu.",
+            "de": "Ein AirNow-Gerät. Leer lassen für den ersten Ort.",
+            "es": "Un dispositivo AirNow. Déjelo vacío para el primer lugar."
+          },
+          "required": false
+        }
+      ]
+    },
+    {
+      "key": "forecast",
+      "icon": "calendar",
+      "action_timeout_seconds": 60,
+      "label": {
+        "en": "AirNow forecast",
+        "fr": "Prévision AirNow",
+        "de": "AirNow-Vorhersage",
+        "es": "Previsión AirNow"
+      },
+      "description": {
+        "en": "The air quality forecast of the next days, and the alerts.",
+        "fr": "La prévision de qualité de l’air des prochains jours, et les alertes.",
+        "de": "Die Luftqualitätsvorhersage der nächsten Tage und die Warnungen.",
+        "es": "La previsión de calidad del aire de los próximos días y las alertas."
+      },
+      "settings": [
+        {
+          "key": "place",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Place",
+            "fr": "Lieu",
+            "de": "Ort",
+            "es": "Lugar"
+          },
+          "description": {
+            "en": "An AirNow device. Leave empty for the first place.",
+            "fr": "Un appareil AirNow. Laissez vide pour le premier lieu.",
+            "de": "Ein AirNow-Gerät. Leer lassen für den ersten Ort.",
+            "es": "Un dispositivo AirNow. Déjelo vacío para el primer lugar."
+          },
+          "required": false
+        }
+      ]
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "air_quality_changed",
+      "label": {
+        "en": "AirNow: air quality changed",
+        "fr": "AirNow : qualité de l’air changée",
+        "de": "AirNow: Luftqualität geändert",
+        "es": "AirNow: cambio de calidad del aire"
+      },
+      "description": {
+        "en": "The AQI category now changes (Good → Moderate…), worse or better.",
+        "fr": "La catégorie de l’AQI actuel change (Bon → Modéré…), en pire ou en mieux.",
+        "de": "Die Kategorie des aktuellen AQI ändert sich (Gut → Mäßig…), schlechter oder besser.",
+        "es": "La categoría del AQI actual cambia (Buena → Moderada…), a peor o a mejor."
+      },
+      "fields": [
+        {
+          "key": "place",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Place",
+            "fr": "Lieu",
+            "de": "Ort",
+            "es": "Lugar"
+          },
+          "description": {
+            "en": "An AirNow device. Leave empty for any place.",
+            "fr": "Un appareil AirNow. Laissez vide pour tous les lieux.",
+            "de": "Ein AirNow-Gerät. Leer lassen für alle Orte.",
+            "es": "Un dispositivo AirNow. Déjelo vacío para cualquier lugar."
+          },
+          "required": false
+        },
+        {
+          "key": "category",
+          "type": "multi_select",
+          "label": {
+            "en": "Category",
+            "fr": "Catégorie",
+            "de": "Kategorie",
+            "es": "Categoría"
+          },
+          "description": {
+            "en": "The new category. Leave empty for any.",
+            "fr": "La nouvelle catégorie. Laissez vide pour toutes.",
+            "de": "Die neue Kategorie. Leer lassen für jede.",
+            "es": "La nueva categoría. Déjelo vacío para cualquiera."
+          },
+          "options": [
+            {
+              "value": "good",
+              "label": {
+                "en": "Good",
+                "fr": "Bon",
+                "de": "Gut",
+                "es": "Buena"
+              }
+            },
+            {
+              "value": "moderate",
+              "label": {
+                "en": "Moderate",
+                "fr": "Modéré",
+                "de": "Mäßig",
+                "es": "Moderada"
+              }
+            },
+            {
+              "value": "sensitive",
+              "label": {
+                "en": "Unhealthy for sensitive groups",
+                "fr": "Mauvais pour les personnes sensibles",
+                "de": "Ungesund für empfindliche Gruppen",
+                "es": "Dañina para grupos sensibles"
+              }
+            },
+            {
+              "value": "unhealthy",
+              "label": {
+                "en": "Unhealthy",
+                "fr": "Mauvais",
+                "de": "Ungesund",
+                "es": "Dañina"
+              }
+            },
+            {
+              "value": "very_unhealthy",
+              "label": {
+                "en": "Very unhealthy",
+                "fr": "Très mauvais",
+                "de": "Sehr ungesund",
+                "es": "Muy dañina"
+              }
+            },
+            {
+              "value": "hazardous",
+              "label": {
+                "en": "Hazardous",
+                "fr": "Dangereux",
+                "de": "Gefährlich",
+                "es": "Peligrosa"
+              }
+            }
+          ]
+        },
+        {
+          "key": "direction",
+          "type": "select",
+          "label": {
+            "en": "Direction",
+            "fr": "Sens",
+            "de": "Richtung",
+            "es": "Sentido"
+          },
+          "description": {
+            "en": "Leave empty for both.",
+            "fr": "Laissez vide pour les deux.",
+            "de": "Leer lassen für beide.",
+            "es": "Déjelo vacío para ambos."
+          },
+          "options": [
+            {
+              "value": "worse",
+              "label": {
+                "en": "Worse",
+                "fr": "Dégradation",
+                "de": "Schlechter",
+                "es": "Empeora"
+              }
+            },
+            {
+              "value": "better",
+              "label": {
+                "en": "Better",
+                "fr": "Amélioration",
+                "de": "Besser",
+                "es": "Mejora"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "place",
+          "type": "string",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        },
+        {
+          "key": "area",
+          "type": "string",
+          "label": {
+            "en": "Reporting area",
+            "fr": "Zone de mesure",
+            "de": "Berichtsgebiet",
+            "es": "Zona de medición"
+          }
+        },
+        {
+          "key": "aqi",
+          "type": "number",
+          "label": {
+            "en": "AQI",
+            "fr": "AQI",
+            "de": "AQI",
+            "es": "AQI"
+          }
+        },
+        {
+          "key": "category",
+          "type": "string",
+          "label": {
+            "en": "Category (key)",
+            "fr": "Catégorie (clé)",
+            "de": "Kategorie (Schlüssel)",
+            "es": "Categoría (clave)"
+          }
+        },
+        {
+          "key": "category_name",
+          "type": "string",
+          "label": {
+            "en": "Category",
+            "fr": "Catégorie",
+            "de": "Kategorie",
+            "es": "Categoría"
+          }
+        },
+        {
+          "key": "previous_category",
+          "type": "string",
+          "label": {
+            "en": "Previous category (key)",
+            "fr": "Catégorie précédente (clé)",
+            "de": "Vorherige Kategorie (Schlüssel)",
+            "es": "Categoría anterior (clave)"
+          }
+        },
+        {
+          "key": "direction",
+          "type": "string",
+          "label": {
+            "en": "Direction",
+            "fr": "Sens",
+            "de": "Richtung",
+            "es": "Sentido"
+          }
+        },
+        {
+          "key": "pollutant",
+          "type": "string",
+          "label": {
+            "en": "Main pollutant (key)",
+            "fr": "Polluant principal (clé)",
+            "de": "Hauptschadstoff (Schlüssel)",
+            "es": "Contaminante principal (clave)"
+          }
+        },
+        {
+          "key": "pollutant_name",
+          "type": "string",
+          "label": {
+            "en": "Main pollutant",
+            "fr": "Polluant principal",
+            "de": "Hauptschadstoff",
+            "es": "Contaminante principal"
+          }
+        }
+      ]
+    },
+    {
+      "key": "forecast_updated",
+      "label": {
+        "en": "AirNow: forecast updated",
+        "fr": "AirNow : prévision mise à jour",
+        "de": "AirNow: Vorhersage aktualisiert",
+        "es": "AirNow: previsión actualizada"
+      },
+      "description": {
+        "en": "The forecast category of a day appears or changes.",
+        "fr": "La catégorie prévue pour un jour apparaît ou change.",
+        "de": "Die vorhergesagte Kategorie eines Tages erscheint oder ändert sich.",
+        "es": "La categoría prevista de un día aparece o cambia."
+      },
+      "fields": [
+        {
+          "key": "place",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Place",
+            "fr": "Lieu",
+            "de": "Ort",
+            "es": "Lugar"
+          },
+          "description": {
+            "en": "An AirNow device. Leave empty for any place.",
+            "fr": "Un appareil AirNow. Laissez vide pour tous les lieux.",
+            "de": "Ein AirNow-Gerät. Leer lassen für alle Orte.",
+            "es": "Un dispositivo AirNow. Déjelo vacío para cualquier lugar."
+          },
+          "required": false
+        },
+        {
+          "key": "day",
+          "type": "select",
+          "label": {
+            "en": "Day",
+            "fr": "Jour",
+            "de": "Tag",
+            "es": "Día"
+          },
+          "description": {
+            "en": "Leave empty for any day.",
+            "fr": "Laissez vide pour tous les jours.",
+            "de": "Leer lassen für jeden Tag.",
+            "es": "Déjelo vacío para cualquier día."
+          },
+          "options": [
+            {
+              "value": "today",
+              "label": {
+                "en": "Today",
+                "fr": "Aujourd’hui",
+                "de": "Heute",
+                "es": "Hoy"
+              }
+            },
+            {
+              "value": "tomorrow",
+              "label": {
+                "en": "Tomorrow",
+                "fr": "Demain",
+                "de": "Morgen",
+                "es": "Mañana"
+              }
+            },
+            {
+              "value": "later",
+              "label": {
+                "en": "Later",
+                "fr": "Plus tard",
+                "de": "Später",
+                "es": "Más adelante"
+              }
+            }
+          ]
+        },
+        {
+          "key": "category",
+          "type": "multi_select",
+          "label": {
+            "en": "Category",
+            "fr": "Catégorie",
+            "de": "Kategorie",
+            "es": "Categoría"
+          },
+          "description": {
+            "en": "The forecast category. Leave empty for any.",
+            "fr": "La catégorie prévue. Laissez vide pour toutes.",
+            "de": "Die vorhergesagte Kategorie. Leer lassen für jede.",
+            "es": "La categoría prevista. Déjelo vacío para cualquiera."
+          },
+          "options": [
+            {
+              "value": "good",
+              "label": {
+                "en": "Good",
+                "fr": "Bon",
+                "de": "Gut",
+                "es": "Buena"
+              }
+            },
+            {
+              "value": "moderate",
+              "label": {
+                "en": "Moderate",
+                "fr": "Modéré",
+                "de": "Mäßig",
+                "es": "Moderada"
+              }
+            },
+            {
+              "value": "sensitive",
+              "label": {
+                "en": "Unhealthy for sensitive groups",
+                "fr": "Mauvais pour les personnes sensibles",
+                "de": "Ungesund für empfindliche Gruppen",
+                "es": "Dañina para grupos sensibles"
+              }
+            },
+            {
+              "value": "unhealthy",
+              "label": {
+                "en": "Unhealthy",
+                "fr": "Mauvais",
+                "de": "Ungesund",
+                "es": "Dañina"
+              }
+            },
+            {
+              "value": "very_unhealthy",
+              "label": {
+                "en": "Very unhealthy",
+                "fr": "Très mauvais",
+                "de": "Sehr ungesund",
+                "es": "Muy dañina"
+              }
+            },
+            {
+              "value": "hazardous",
+              "label": {
+                "en": "Hazardous",
+                "fr": "Dangereux",
+                "de": "Gefährlich",
+                "es": "Peligrosa"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "place",
+          "type": "string",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        },
+        {
+          "key": "area",
+          "type": "string",
+          "label": {
+            "en": "Reporting area",
+            "fr": "Zone de mesure",
+            "de": "Berichtsgebiet",
+            "es": "Zona de medición"
+          }
+        },
+        {
+          "key": "date",
+          "type": "string",
+          "label": {
+            "en": "Date",
+            "fr": "Date",
+            "de": "Datum",
+            "es": "Fecha"
+          }
+        },
+        {
+          "key": "day",
+          "type": "string",
+          "label": {
+            "en": "Day",
+            "fr": "Jour",
+            "de": "Tag",
+            "es": "Día"
+          }
+        },
+        {
+          "key": "aqi",
+          "type": "number",
+          "label": {
+            "en": "AQI",
+            "fr": "AQI",
+            "de": "AQI",
+            "es": "AQI"
+          }
+        },
+        {
+          "key": "category",
+          "type": "string",
+          "label": {
+            "en": "Category (key)",
+            "fr": "Catégorie (clé)",
+            "de": "Kategorie (Schlüssel)",
+            "es": "Categoría (clave)"
+          }
+        },
+        {
+          "key": "category_name",
+          "type": "string",
+          "label": {
+            "en": "Category",
+            "fr": "Catégorie",
+            "de": "Kategorie",
+            "es": "Categoría"
+          }
+        },
+        {
+          "key": "pollutant",
+          "type": "string",
+          "label": {
+            "en": "Main pollutant (key)",
+            "fr": "Polluant principal (clé)",
+            "de": "Hauptschadstoff (Schlüssel)",
+            "es": "Contaminante principal (clave)"
+          }
+        },
+        {
+          "key": "pollutant_name",
+          "type": "string",
+          "label": {
+            "en": "Main pollutant",
+            "fr": "Polluant principal",
+            "de": "Hauptschadstoff",
+            "es": "Contaminante principal"
+          }
+        },
+        {
+          "key": "action_day",
+          "type": "boolean",
+          "label": {
+            "en": "Action day",
+            "fr": "Jour d’alerte",
+            "de": "Aktionstag",
+            "es": "Día de acción"
+          }
+        },
+        {
+          "key": "discussion",
+          "type": "string",
+          "label": {
+            "en": "Forecaster’s discussion",
+            "fr": "Commentaire du prévisionniste",
+            "de": "Kommentar der Vorhersage",
+            "es": "Comentario del pronosticador"
+          }
+        }
+      ]
+    },
+    {
+      "key": "action_day",
+      "label": {
+        "en": "AirNow: air quality alert",
+        "fr": "AirNow : alerte qualité de l’air",
+        "de": "AirNow: Luftqualitätswarnung",
+        "es": "AirNow: alerta de calidad del aire"
+      },
+      "description": {
+        "en": "A forecast announces an Air Quality Action Day (an alert of the local agency).",
+        "fr": "Une prévision annonce un « Action Day » (alerte de l’agence locale).",
+        "de": "Eine Vorhersage kündigt einen Air Quality Action Day an (Warnung der Behörde).",
+        "es": "Una previsión anuncia un Action Day (alerta de la agencia local)."
+      },
+      "fields": [
+        {
+          "key": "place",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Place",
+            "fr": "Lieu",
+            "de": "Ort",
+            "es": "Lugar"
+          },
+          "description": {
+            "en": "An AirNow device. Leave empty for any place.",
+            "fr": "Un appareil AirNow. Laissez vide pour tous les lieux.",
+            "de": "Ein AirNow-Gerät. Leer lassen für alle Orte.",
+            "es": "Un dispositivo AirNow. Déjelo vacío para cualquier lugar."
+          },
+          "required": false
+        },
+        {
+          "key": "day",
+          "type": "select",
+          "label": {
+            "en": "Day",
+            "fr": "Jour",
+            "de": "Tag",
+            "es": "Día"
+          },
+          "description": {
+            "en": "Leave empty for any day.",
+            "fr": "Laissez vide pour tous les jours.",
+            "de": "Leer lassen für jeden Tag.",
+            "es": "Déjelo vacío para cualquier día."
+          },
+          "options": [
+            {
+              "value": "today",
+              "label": {
+                "en": "Today",
+                "fr": "Aujourd’hui",
+                "de": "Heute",
+                "es": "Hoy"
+              }
+            },
+            {
+              "value": "tomorrow",
+              "label": {
+                "en": "Tomorrow",
+                "fr": "Demain",
+                "de": "Morgen",
+                "es": "Mañana"
+              }
+            },
+            {
+              "value": "later",
+              "label": {
+                "en": "Later",
+                "fr": "Plus tard",
+                "de": "Später",
+                "es": "Más adelante"
+              }
+            }
+          ]
+        }
+      ],
+      "variables": [
+        {
+          "key": "place",
+          "type": "string",
+          "label": {
+            "en": "Device",
+            "fr": "Appareil",
+            "de": "Gerät",
+            "es": "Dispositivo"
+          }
+        },
+        {
+          "key": "area",
+          "type": "string",
+          "label": {
+            "en": "Reporting area",
+            "fr": "Zone de mesure",
+            "de": "Berichtsgebiet",
+            "es": "Zona de medición"
+          }
+        },
+        {
+          "key": "date",
+          "type": "string",
+          "label": {
+            "en": "Date",
+            "fr": "Date",
+            "de": "Datum",
+            "es": "Fecha"
+          }
+        },
+        {
+          "key": "day",
+          "type": "string",
+          "label": {
+            "en": "Day",
+            "fr": "Jour",
+            "de": "Tag",
+            "es": "Día"
+          }
+        },
+        {
+          "key": "aqi",
+          "type": "number",
+          "label": {
+            "en": "AQI",
+            "fr": "AQI",
+            "de": "AQI",
+            "es": "AQI"
+          }
+        },
+        {
+          "key": "category",
+          "type": "string",
+          "label": {
+            "en": "Category (key)",
+            "fr": "Catégorie (clé)",
+            "de": "Kategorie (Schlüssel)",
+            "es": "Categoría (clave)"
+          }
+        },
+        {
+          "key": "category_name",
+          "type": "string",
+          "label": {
+            "en": "Category",
+            "fr": "Catégorie",
+            "de": "Kategorie",
+            "es": "Categoría"
+          }
+        },
+        {
+          "key": "pollutant",
+          "type": "string",
+          "label": {
+            "en": "Main pollutant (key)",
+            "fr": "Polluant principal (clé)",
+            "de": "Hauptschadstoff (Schlüssel)",
+            "es": "Contaminante principal (clave)"
+          }
+        },
+        {
+          "key": "pollutant_name",
+          "type": "string",
+          "label": {
+            "en": "Main pollutant",
+            "fr": "Polluant principal",
+            "de": "Hauptschadstoff",
+            "es": "Contaminante principal"
+          }
+        },
+        {
+          "key": "action_day",
+          "type": "boolean",
+          "label": {
+            "en": "Action day",
+            "fr": "Jour d’alerte",
+            "de": "Aktionstag",
+            "es": "Día de acción"
+          }
+        },
+        {
+          "key": "discussion",
+          "type": "string",
+          "label": {
+            "en": "Forecaster’s discussion",
+            "fr": "Commentaire du prévisionniste",
+            "de": "Kommentar der Vorhersage",
+            "es": "Comentario del pronosticador"
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "get_air_quality",
+      "timeout_seconds": 30,
+      "label": {
+        "en": "AirNow: read the air quality",
+        "fr": "AirNow : lire la qualité de l’air",
+        "de": "AirNow: Luftqualität lesen",
+        "es": "AirNow: leer la calidad del aire"
+      },
+      "description": {
+        "en": "The AQI now, the forecast of today and tomorrow, and a sentence for a message.",
+        "fr": "L’AQI actuel, la prévision du jour et du lendemain, et une phrase pour un message.",
+        "de": "Der aktuelle AQI, die Vorhersage für heute und morgen und ein Satz für eine Nachricht.",
+        "es": "El AQI actual, la previsión de hoy y mañana, y una frase para un mensaje."
+      },
+      "fields": [
+        {
+          "key": "place",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Place",
+            "fr": "Lieu",
+            "de": "Ort",
+            "es": "Lugar"
+          },
+          "description": {
+            "en": "An AirNow device. Leave empty for the first place.",
+            "fr": "Un appareil AirNow. Laissez vide pour le premier lieu.",
+            "de": "Ein AirNow-Gerät. Leer lassen für den ersten Ort.",
+            "es": "Un dispositivo AirNow. Déjelo vacío para el primer lugar."
+          },
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "key": "aqi",
+          "type": "number",
+          "label": {
+            "en": "AQI",
+            "fr": "AQI",
+            "de": "AQI",
+            "es": "AQI"
+          }
+        },
+        {
+          "key": "category",
+          "type": "string",
+          "label": {
+            "en": "Category (key)",
+            "fr": "Catégorie (clé)",
+            "de": "Kategorie (Schlüssel)",
+            "es": "Categoría (clave)"
+          }
+        },
+        {
+          "key": "category_name",
+          "type": "string",
+          "label": {
+            "en": "Category",
+            "fr": "Catégorie",
+            "de": "Kategorie",
+            "es": "Categoría"
+          }
+        },
+        {
+          "key": "pollutant_name",
+          "type": "string",
+          "label": {
+            "en": "Main pollutant",
+            "fr": "Polluant principal",
+            "de": "Hauptschadstoff",
+            "es": "Contaminante principal"
+          }
+        },
+        {
+          "key": "area",
+          "type": "string",
+          "label": {
+            "en": "Reporting area",
+            "fr": "Zone de mesure",
+            "de": "Berichtsgebiet",
+            "es": "Zona de medición"
+          }
+        },
+        {
+          "key": "forecast_today_aqi",
+          "type": "number",
+          "label": {
+            "en": "Forecast AQI today",
+            "fr": "AQI prévu aujourd’hui",
+            "de": "Vorhergesagter AQI heute",
+            "es": "AQI previsto hoy"
+          }
+        },
+        {
+          "key": "forecast_tomorrow_aqi",
+          "type": "number",
+          "label": {
+            "en": "Forecast AQI tomorrow",
+            "fr": "AQI prévu demain",
+            "de": "Vorhergesagter AQI morgen",
+            "es": "AQI previsto mañana"
+          }
+        },
+        {
+          "key": "forecast_tomorrow_category",
+          "type": "string",
+          "label": {
+            "en": "Forecast category tomorrow (key)",
+            "fr": "Catégorie prévue demain (clé)",
+            "de": "Vorhergesagte Kategorie morgen (Schlüssel)",
+            "es": "Categoría prevista mañana (clave)"
+          }
+        },
+        {
+          "key": "action_day",
+          "type": "boolean",
+          "label": {
+            "en": "Action day today or tomorrow",
+            "fr": "Jour d’alerte aujourd’hui ou demain",
+            "de": "Aktionstag heute oder morgen",
+            "es": "Día de acción hoy o mañana"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          }
+        }
+      ]
+    }
+  ]
+}

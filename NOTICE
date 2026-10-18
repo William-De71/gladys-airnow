@@ -1,0 +1,18 @@
+Gladys AirNow integration
+Copyright 2026 William Deren
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The air quality observations and forecasts come from the AirNow program of the
+U.S. Environmental Protection Agency (https://www.airnow.gov), through the
+AirNow API (https://docs.airnowapi.org). They are provided by federal, state,
+local and tribal air quality agencies, which own the data; they are
+preliminary, not fully verified or validated, and are shown as received, with
+their agency, following the AirNow Data Exchange Guidelines.
+
+The files under test/fixtures are answers of the AirNow API captured on
+2026-09-09 by the authors of the R package airnow
+(https://github.com/briandconnelly/airnow, MIT licence).
+
+This community integration is not affiliated with, endorsed or sponsored by
+the U.S. EPA or the AirNow program.

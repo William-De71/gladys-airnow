@@ -1,0 +1,470 @@
+{
+  "devices": {
+    "zip": {
+      "external_id": "ext:airnow:place:zip-90210",
+      "should_poll": false,
+      "params": ["AIRNOW_ZIP", "AIRNOW_REPORTING_AREA"],
+      "features": [
+        {
+          "external_id": "ext:airnow:place:zip-90210:aqi",
+          "category": "airquality-sensor",
+          "type": "aqi",
+          "unit": "aqi",
+          "min": 0,
+          "max": 999,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:zip-90210:pm25",
+          "category": "airquality-sensor",
+          "type": "aqi",
+          "unit": "aqi",
+          "min": 0,
+          "max": 999,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:zip-90210:ozone",
+          "category": "airquality-sensor",
+          "type": "aqi",
+          "unit": "aqi",
+          "min": 0,
+          "max": 999,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:zip-90210:pm10",
+          "category": "airquality-sensor",
+          "type": "aqi",
+          "unit": "aqi",
+          "min": 0,
+          "max": 999,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:zip-90210:category",
+          "category": "text",
+          "type": "text",
+          "min": 0,
+          "max": 0,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:zip-90210:forecast_today",
+          "category": "airquality-sensor",
+          "type": "aqi",
+          "unit": "aqi",
+          "min": 0,
+          "max": 999,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:zip-90210:forecast_tomorrow",
+          "category": "airquality-sensor",
+          "type": "aqi",
+          "unit": "aqi",
+          "min": 0,
+          "max": 999,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:zip-90210:forecast",
+          "category": "text",
+          "type": "text",
+          "min": 0,
+          "max": 0,
+          "read_only": true,
+          "has_feedback": false
+        }
+      ]
+    },
+    "house": {
+      "external_id": "ext:airnow:place:house-main-house",
+      "should_poll": false,
+      "params": ["AIRNOW_HOUSE", "AIRNOW_REPORTING_AREA"],
+      "features": [
+        {
+          "external_id": "ext:airnow:place:house-main-house:aqi",
+          "category": "airquality-sensor",
+          "type": "aqi",
+          "unit": "aqi",
+          "min": 0,
+          "max": 999,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:house-main-house:pm25",
+          "category": "airquality-sensor",
+          "type": "aqi",
+          "unit": "aqi",
+          "min": 0,
+          "max": 999,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:house-main-house:ozone",
+          "category": "airquality-sensor",
+          "type": "aqi",
+          "unit": "aqi",
+          "min": 0,
+          "max": 999,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:house-main-house:pm10",
+          "category": "airquality-sensor",
+          "type": "aqi",
+          "unit": "aqi",
+          "min": 0,
+          "max": 999,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:house-main-house:category",
+          "category": "text",
+          "type": "text",
+          "min": 0,
+          "max": 0,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:house-main-house:forecast_today",
+          "category": "airquality-sensor",
+          "type": "aqi",
+          "unit": "aqi",
+          "min": 0,
+          "max": 999,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:house-main-house:forecast_tomorrow",
+          "category": "airquality-sensor",
+          "type": "aqi",
+          "unit": "aqi",
+          "min": 0,
+          "max": 999,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:airnow:place:house-main-house:forecast",
+          "category": "text",
+          "type": "text",
+          "min": 0,
+          "max": 0,
+          "read_only": true,
+          "has_feedback": false
+        }
+      ]
+    }
+  },
+  "manifest": {
+    "actions": ["read_now", "diagnostic"],
+    "config_schema": [
+      {
+        "key": "intro",
+        "type": "section"
+      },
+      {
+        "key": "api_key",
+        "type": "secret"
+      },
+      {
+        "key": "places",
+        "type": "section"
+      },
+      {
+        "key": "house_1",
+        "type": "select"
+      },
+      {
+        "key": "zip_1",
+        "type": "string"
+      },
+      {
+        "key": "place_2_section",
+        "type": "section"
+      },
+      {
+        "key": "house_2",
+        "type": "select"
+      },
+      {
+        "key": "zip_2",
+        "type": "string"
+      },
+      {
+        "key": "place_3_section",
+        "type": "section"
+      },
+      {
+        "key": "house_3",
+        "type": "select"
+      },
+      {
+        "key": "zip_3",
+        "type": "string"
+      },
+      {
+        "key": "options",
+        "type": "section"
+      },
+      {
+        "key": "language",
+        "type": "select"
+      }
+    ],
+    "scene_triggers": [
+      {
+        "key": "air_quality_changed",
+        "fields": [
+          {
+            "key": "place",
+            "options": []
+          },
+          {
+            "key": "category",
+            "options": ["good", "moderate", "sensitive", "unhealthy", "very_unhealthy", "hazardous"]
+          },
+          {
+            "key": "direction",
+            "options": ["worse", "better"]
+          }
+        ],
+        "variables": [
+          {
+            "key": "place",
+            "type": "string"
+          },
+          {
+            "key": "area",
+            "type": "string"
+          },
+          {
+            "key": "aqi",
+            "type": "number"
+          },
+          {
+            "key": "category",
+            "type": "string"
+          },
+          {
+            "key": "category_name",
+            "type": "string"
+          },
+          {
+            "key": "previous_category",
+            "type": "string"
+          },
+          {
+            "key": "direction",
+            "type": "string"
+          },
+          {
+            "key": "pollutant",
+            "type": "string"
+          },
+          {
+            "key": "pollutant_name",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "forecast_updated",
+        "fields": [
+          {
+            "key": "place",
+            "options": []
+          },
+          {
+            "key": "day",
+            "options": ["today", "tomorrow", "later"]
+          },
+          {
+            "key": "category",
+            "options": ["good", "moderate", "sensitive", "unhealthy", "very_unhealthy", "hazardous"]
+          }
+        ],
+        "variables": [
+          {
+            "key": "place",
+            "type": "string"
+          },
+          {
+            "key": "area",
+            "type": "string"
+          },
+          {
+            "key": "date",
+            "type": "string"
+          },
+          {
+            "key": "day",
+            "type": "string"
+          },
+          {
+            "key": "aqi",
+            "type": "number"
+          },
+          {
+            "key": "category",
+            "type": "string"
+          },
+          {
+            "key": "category_name",
+            "type": "string"
+          },
+          {
+            "key": "pollutant",
+            "type": "string"
+          },
+          {
+            "key": "pollutant_name",
+            "type": "string"
+          },
+          {
+            "key": "action_day",
+            "type": "boolean"
+          },
+          {
+            "key": "discussion",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "action_day",
+        "fields": [
+          {
+            "key": "place",
+            "options": []
+          },
+          {
+            "key": "day",
+            "options": ["today", "tomorrow", "later"]
+          }
+        ],
+        "variables": [
+          {
+            "key": "place",
+            "type": "string"
+          },
+          {
+            "key": "area",
+            "type": "string"
+          },
+          {
+            "key": "date",
+            "type": "string"
+          },
+          {
+            "key": "day",
+            "type": "string"
+          },
+          {
+            "key": "aqi",
+            "type": "number"
+          },
+          {
+            "key": "category",
+            "type": "string"
+          },
+          {
+            "key": "category_name",
+            "type": "string"
+          },
+          {
+            "key": "pollutant",
+            "type": "string"
+          },
+          {
+            "key": "pollutant_name",
+            "type": "string"
+          },
+          {
+            "key": "action_day",
+            "type": "boolean"
+          },
+          {
+            "key": "discussion",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "scene_actions": [
+      {
+        "key": "get_air_quality",
+        "fields": ["place"],
+        "outputs": [
+          {
+            "key": "aqi",
+            "type": "number"
+          },
+          {
+            "key": "category",
+            "type": "string"
+          },
+          {
+            "key": "category_name",
+            "type": "string"
+          },
+          {
+            "key": "pollutant_name",
+            "type": "string"
+          },
+          {
+            "key": "area",
+            "type": "string"
+          },
+          {
+            "key": "forecast_today_aqi",
+            "type": "number"
+          },
+          {
+            "key": "forecast_tomorrow_aqi",
+            "type": "number"
+          },
+          {
+            "key": "forecast_tomorrow_category",
+            "type": "string"
+          },
+          {
+            "key": "action_day",
+            "type": "boolean"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "widgets": [
+      {
+        "key": "air_quality",
+        "settings": ["place"],
+        "options": {}
+      },
+      {
+        "key": "forecast",
+        "settings": ["place"],
+        "options": {}
+      }
+    ]
+  }
+}
