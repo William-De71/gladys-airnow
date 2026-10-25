@@ -10,7 +10,7 @@ El AQI va de 0 a 500 (más con el humo de incendios forestales): Buena (0-50), M
 
 ## Requisitos
 
-- Gladys Assistant **5.2.0** o posterior (el selector de casa de la configuración). Las instancias más antiguas no pueden instalar la integración.
+- Gladys Assistant **5.3.0** o posterior (palabras clave y países del catálogo, el selector de casa de la configuración). Las instancias más antiguas no pueden instalar la integración.
 - Una clave de API de AirNow gratuita (más abajo).
 - Un lugar cubierto por AirNow: Estados Unidos, y Canadá o México mediante una casa (los códigos ZIP son solo de EE. UU.). AirNow responde con la zona de medición más cercana y sus estaciones, en un radio de unos 80 km.
 

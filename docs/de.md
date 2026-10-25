@@ -10,7 +10,7 @@ Der AQI reicht von 0 bis 500 (bei Waldbrandrauch mehr): Gut (0-50), Mäßig (51-
 
 ## Voraussetzungen
 
-- Gladys Assistant **5.2.0** oder neuer (die Hausauswahl der Konfiguration). Ältere Instanzen können die Integration nicht installieren.
+- Gladys Assistant **5.3.0** oder neuer (Suchbegriffe und Länder des Katalogs, die Hausauswahl der Konfiguration). Ältere Instanzen können die Integration nicht installieren.
 - Ein kostenloser AirNow-API-Schlüssel (unten).
 - Ein von AirNow abgedeckter Ort: die USA, sowie Kanada oder Mexiko über ein Haus (ZIP-Postleitzahlen gibt es nur in den USA). AirNow antwortet mit dem nächsten Berichtsgebiet und seinen Messstationen im Umkreis von etwa 80 km.
 

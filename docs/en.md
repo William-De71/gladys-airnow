@@ -10,7 +10,7 @@ The AQI goes from 0 to 500 (more during wildfire smoke): Good (0-50), Moderate (
 
 ## Prerequisites
 
-- Gladys Assistant **5.2.0** or later (the house picker of the configuration). Older instances cannot install the integration.
+- Gladys Assistant **5.3.0** or later (catalog keywords and countries, the house picker of the configuration). Older instances cannot install the integration.
 - A free AirNow API key (below).
 - A place covered by AirNow: the United States, and Canada or Mexico through a house (ZIP codes are U.S. only). AirNow answers with the nearest reporting area and its monitors, within about 50 miles.
 

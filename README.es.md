@@ -5,7 +5,7 @@
 [![Licencia: Apache-2.0](https://img.shields.io/badge/licencia-Apache--2.0-blue.svg)](LICENSE)
 [![Última versión](https://img.shields.io/github/v/release/William-De71/gladys-airnow?sort=semver)](https://github.com/William-De71/gladys-airnow/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-airnow/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-airnow/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.2.0-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![AirNow para Gladys Assistant](cover.jpg)
 
@@ -91,7 +91,7 @@ Un dispositivo por lugar, `should_poll: false`. Un valor que AirNow no dio no se
 
 ## Requisitos
 
-- Gladys Assistant **5.2.0** o posterior (el selector de casa). Las instancias más antiguas no pueden instalar la integración.
+- Gladys Assistant **5.3.0** o posterior (palabras clave y países del catálogo, el selector de casa). Las instancias más antiguas no pueden instalar la integración.
 - Una clave de API de AirNow gratuita: [solicite una cuenta](https://docs.airnowapi.org/account/request/) y copie la clave que aparece arriba a la derecha de la página Web Services (vea [docs/es.md](docs/es.md#obtener-una-clave-de-api)).
 - Lugares en Estados Unidos, Canadá o México.
 

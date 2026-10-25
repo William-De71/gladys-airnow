@@ -5,7 +5,7 @@
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 [![Latest release](https://img.shields.io/github/v/release/William-De71/gladys-airnow?sort=semver)](https://github.com/William-De71/gladys-airnow/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-airnow/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-airnow/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.2.0-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![AirNow for Gladys Assistant](cover.jpg)
 
@@ -91,7 +91,7 @@ One device per place, `should_poll: false`. A value AirNow did not give is not p
 
 ## Requirements
 
-- Gladys Assistant **5.2.0** or later (the house picker). Older instances cannot install the integration.
+- Gladys Assistant **5.3.0** or later (catalog keywords and countries, the house picker). Older instances cannot install the integration.
 - A free AirNow API key: [request an account](https://docs.airnowapi.org/account/request/), then copy the key shown at the top right of the Web Services page (see [docs/en.md](docs/en.md#get-an-api-key)).
 - Places in the United States, Canada or Mexico.
 

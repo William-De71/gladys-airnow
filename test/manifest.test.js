@@ -38,8 +38,8 @@ test('declares the cloud transport only: the AirNow API, over HTTPS', () => {
   assert.match(source('../src/airnow-api.js'), /'https:\/\/www\.airnowapi\.org'/);
 });
 
-test('requires the Gladys of the house picker; the location permission only', () => {
-  assert.equal(manifest.gladys_version, '>=5.2.0');
+test('requires Gladys 5.3.0 (catalog keywords), past the house picker; the location permission only', () => {
+  assert.equal(manifest.gladys_version, '>=5.3.0');
   assert.equal(manifest.location, true);
   assert.deepEqual(manifest.categories, ['environment']);
   for (const key of ['network_wake', 'containers', 'network_discovery', 'webhooks']) {
@@ -138,4 +138,16 @@ test('limits of the store: counts, timeouts, sizes, no secret in widget settings
   const cover = readFileSync(new URL('../cover.jpg', import.meta.url));
   assert.ok(cover.length < 150 * 1024);
   assert.equal(cover.readUInt16BE(0), 0xffd8);
+});
+
+test('catalog of Gladys 5.3.0: search keywords within the store bounds, countries', () => {
+  const { keywords } = manifest;
+  assert.ok(Array.isArray(keywords) && keywords.length >= 1 && keywords.length <= 10);
+  const normalized = keywords.map((keyword) => keyword.trim().toLowerCase());
+  for (const keyword of normalized) {
+    assert.ok(keyword.length >= 2 && keyword.length <= 30, keyword);
+  }
+  assert.equal(new Set(normalized).size, normalized.length, 'unique once trimmed and lowercased');
+  assert.ok(!normalized.includes(manifest.name.toLowerCase()), 'never the name itself');
+  assert.deepEqual(manifest.countries, ['US', 'CA', 'MX'], 'usable there only');
 });

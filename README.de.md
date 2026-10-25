@@ -5,7 +5,7 @@
 [![Lizenz: Apache-2.0](https://img.shields.io/badge/Lizenz-Apache--2.0-blue.svg)](LICENSE)
 [![Neueste Version](https://img.shields.io/github/v/release/William-De71/gladys-airnow?sort=semver)](https://github.com/William-De71/gladys-airnow/releases)
 [![CI](https://img.shields.io/github/actions/workflow/status/William-De71/gladys-airnow/release.yml?branch=main&label=CI)](https://github.com/William-De71/gladys-airnow/actions/workflows/release.yml)
-[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.2.0-2f6fb5)](https://gladysassistant.com)
+[![Gladys](https://img.shields.io/badge/Gladys-%E2%89%A5%205.3.0-2f6fb5)](https://gladysassistant.com)
 
 ![AirNow für Gladys Assistant](cover.jpg)
 
@@ -91,7 +91,7 @@ Ein Gerät pro Ort, `should_poll: false`. Ein Wert, den AirNow nicht geliefert h
 
 ## Voraussetzungen
 
-- Gladys Assistant **5.2.0** oder neuer (die Hausauswahl). Ältere Instanzen können die Integration nicht installieren.
+- Gladys Assistant **5.3.0** oder neuer (Suchbegriffe und Länder des Katalogs, die Hausauswahl). Ältere Instanzen können die Integration nicht installieren.
 - Ein kostenloser AirNow-API-Schlüssel: [beantrage ein Konto](https://docs.airnowapi.org/account/request/) und kopiere dann den Schlüssel oben rechts auf der Seite Web Services (siehe [docs/de.md](docs/de.md#einen-api-schlüssel-erhalten)).
 - Orte in den USA, in Kanada oder in Mexiko.
 
